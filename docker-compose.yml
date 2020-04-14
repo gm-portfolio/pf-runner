@@ -1,0 +1,40 @@
+version: '3'
+services:
+
+  pf-front:
+    image: gmportfolio/pf-front
+    networks:
+      - front
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+
+  pf-proxy:
+    image: gmportfolio/pf-proxy
+    depends_on:
+      - pf-front
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - front
+    volumes:
+      - ./proxy:/etc/nginx/proxy:ro
+      - letsencrypt:/etc/letsencrypt
+    command: sh /etc/nginx/proxy/run.sh
+    environment:
+      - DOMAIN=gevorg-martir.me
+      - EMAIL=gevorg.martir@gmail.com
+      - PRODUCTION=true
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+
+
+networks:
+  front:
+
+volumes:
+  letsencrypt:

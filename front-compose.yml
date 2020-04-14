@@ -1,0 +1,7 @@
+version: '3'
+services:
+
+  pf-front:
+    image: mgportfolio/pf-front
+    volumes:
+      - ../pf-front/dist:/usr/share/nginx/html/
