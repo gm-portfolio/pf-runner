@@ -17,7 +17,7 @@ if [ ${PRODUCTION} = 'true' ]; then
   if [ ! -d "/etc/letsencrypt/live/${DOMAIN}/" ]; then
     echo "Getting certificates from production"
     mkdir -p /var/www/letsencrypt
-    certbot certonly --test-cert --webroot --webroot-path /var/www/letsencrypt \
+    certbot certonly --webroot --webroot-path /var/www/letsencrypt \
     --email ${EMAIL} --agree-tos --no-eff-email -d ${DOMAIN}  -d www.${DOMAIN} \
     --deploy-hook "cp -rL /etc/letsencrypt/live/${DOMAIN}/. /etc/letsencrypt/certificates" \
     --force-renewal
