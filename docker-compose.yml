@@ -11,7 +11,7 @@ services:
         condition: any
 
   pf-proxy:
-    image: gmportfolio/pf-proxy
+    image: gevorgmartir/proxy
     depends_on:
       - pf-front
     ports:
